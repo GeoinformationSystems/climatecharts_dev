@@ -1,8 +1,9 @@
-/database/tables.fill
+/assets/database/tables.fill
 /installationnotes.md
+/war_folder
 #/climatecharts_client
 #/gazetter
-#/thredds
+/assets/thredds/
 #/weatherstations-api
 
 

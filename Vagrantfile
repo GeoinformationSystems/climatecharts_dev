@@ -43,12 +43,12 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "./database/", "/home/vagrant/database/"
-  config.vm.synced_folder "./climatecharts_client/", "/home/vagrant/development/climatecharts_client"
+  config.vm.synced_folder "./assets/", "/home/vagrant/assets/"
+  config.vm.synced_folder "./climatecharts_client/", "/home/vagrant/development/climatecharts_client/"
   config.vm.synced_folder "./gazetteer/", "/home/vagrant/development/gazetteer/"
   config.vm.synced_folder "./thredds/", "/home/vagrant/development/thredds/"
-  config.vm.synced_folder "./weatherstations-api/", "/home/vagrant/development/weatherstations-api"
-  #config.vm.synced_folder "./war_folder/", "/TO_TOMCAT_WAR_FOLDER"
+  config.vm.synced_folder "./weatherstations-api/", "/home/vagrant/development/weatherstations-api/"
+  config.vm.synced_folder "./war_folder/", "/var/lib/tomcat8/webapps/"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

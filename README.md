@@ -1,6 +1,6 @@
 # Dev environment for the climatecharts website
 
-Development of the climetcharts website.
+Development environment for the climetcharts website.
 
 
 ## Features
@@ -14,7 +14,7 @@ Development of the climetcharts website.
     * port `5432` for PostgreSQL.
     * port `80` for Apache 2.
     * port `8080` for Tomcat.
-  * Sample PostgreSQL database `climatecharts_weatherstations` created filled with tables (and data).
+  * Sample PostgreSQL database `climatecharts_weatherstations` created and filled with tables (and data).
 
 ## Requirements
 
@@ -45,4 +45,4 @@ You can get root access with `sudo` command.
 * `vagrant destroy` to wipe out the guest machine completely.
 You can re-create it and start over with `vagrant up`.
 
-* `psql -h localhost -p 5432 -d pettycash -U vagrant` to connect to database from host. Similarly, you can connect using [pgAdmin4](https://www.pgadmin.org/).
+* `psql -h localhost -p 5432 -d climatecharts_weatherstations -U postgres` to connect to database from host. Similarly, you can connect using [pgAdmin4](https://www.pgadmin.org/).

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-DATABASE_FOLDER="/home/vagrant/database"
+ASSETS_FOLDER="/home/vagrant/assets"
+DATABASE_FOLDER="${ASSETS_FOLDER}/database"
 DEV_FOLDER="/home/vagrant/development"
+WEBAPPS_FOLDER="/var/lib/tomcat8/webapps"
 
 echo "-------------------- "
 echo "-------------------- updating package lists"
@@ -60,12 +62,73 @@ if [ -e "${DATABASE_FOLDER}/tables.fill" ]; then
 fi
 sudo /etc/init.d/postgresql restart
 
-
 echo "-------------------- "
 echo "-------------------- upgrade rest of the system"
 echo "-------------------- "
 sudo apt-get upgrade -y
 
 echo "-------------------- "
-echo "-------------------- Git things"
+echo "-------------------- add github.com to known hosts"
 echo "-------------------- "
+sudo sh -c 'echo "Host github.com \n \t StrictHostKeyChecking no" >> ~/.ssh/config'
+
+echo "-------------------- "
+echo "-------------------- Git include climatecharts"
+echo "-------------------- "
+cd ${DEV_FOLDER}/climatecharts_client
+git clone https://github.com/GeoinformationSystems/climatecharts.git .
+git checkout develop
+sudo ln -s ${DEV_FOLDER}/climatecharts_client /var/www/html/
+
+echo "-------------------- "
+echo "-------------------- install node & and build climatecharts project"
+echo "-------------------- "
+sudo apt-get install -y npm
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+cd ${DEV_FOLDER}/
+sudo npm install --save-dev babel-cli
+sudo npm install --save-dev babel-preset-env
+cd ${DEV_FOLDER}/climatecharts_client
+./build.sh
+
+echo "-------------------- "
+echo "-------------------- install OpenJDK & mvn"
+echo "-------------------- "
+sudo apt-get install -y openjdk-8-jdk maven
+
+echo "-------------------- "
+echo "-------------------- Git include gazetter"
+echo "-------------------- "
+cd ${DEV_FOLDER}/gazetteer
+git clone https://github.com/GeoinformationSystems/gazetteer .
+git checkout develop
+
+echo "-------------------- "
+echo "-------------------- build gazetter"
+echo "-------------------- "
+cd ${DEV_FOLDER}/gazetteer
+mkdir src/main/resources/
+mvn clean install
+cp target/gazetteer.war ${WEBAPPS_FOLDER}
+
+echo "-------------------- "
+echo "-------------------- Git include weatherstations-api"
+echo "-------------------- "
+cd ${DEV_FOLDER}/weatherstations-api
+git clone https://github.com/GeoinformationSystems/weatherstations .
+git checkout develop
+
+echo "-------------------- "
+echo "-------------------- build weatherstations-api"
+echo "-------------------- "
+cd ${DEV_FOLDER}/weatherstations-api/api
+mkdir src/main/resources/
+mvn clean install
+cp target/weatherstations-api.war ${WEBAPPS_FOLDER}
+
+#echo "-------------------- "
+#echo "-------------------- Git include thredds"
+#echo "-------------------- "
+#cd ${DEV_FOLDER}/thredds
+#git clone https://github.com/GeoinformationSystems/thredds .
+#git checkout develop
