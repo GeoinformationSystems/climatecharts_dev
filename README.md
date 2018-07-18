@@ -1,7 +1,7 @@
-# Vagrant PostGIS 4 GI PettyCash
+# Dev environment for the climatecharts website
 
-Development of a petty cash managament system for a small user group with monthly fees, additional sales.
-The Goal is to have an 3-layered architecture with [PostgreSQL](https://www.postgresql.org/) database with an REST-API on top ([Django Rest Framework](http://www.django-rest-framework.org/)) and an [Angular](https://angular.io/) frontend.
+Development of the climetcharts website.
+
 
 ## Features
 
