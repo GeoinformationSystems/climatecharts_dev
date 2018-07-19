@@ -5,6 +5,7 @@
 #/gazetter
 /assets/thredds/
 #/weatherstations-api
+*.ppk
 
 
 # Created by https://www.gitignore.io/api/git,macos,windows,vagrant,webstorm,intellij

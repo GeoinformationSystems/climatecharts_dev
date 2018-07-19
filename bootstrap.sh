@@ -76,6 +76,7 @@ echo "-------------------- "
 echo "-------------------- Git include climatecharts"
 echo "-------------------- "
 cd ${DEV_FOLDER}/climatecharts_client
+rm ./* & rm -r .*
 git clone https://github.com/GeoinformationSystems/climatecharts.git .
 git checkout develop
 sudo ln -s ${DEV_FOLDER}/climatecharts_client /var/www/html/
@@ -85,6 +86,8 @@ echo "-------------------- install node & and build climatecharts project"
 echo "-------------------- "
 sudo apt-get install -y npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install --save-dev -g babel-cli
+sudo npm install --save-dev -g babel-preset-env
 cd ${DEV_FOLDER}/
 sudo npm install --save-dev babel-cli
 sudo npm install --save-dev babel-preset-env
@@ -100,6 +103,7 @@ echo "-------------------- "
 echo "-------------------- Git include gazetter"
 echo "-------------------- "
 cd ${DEV_FOLDER}/gazetteer
+rm -r .* & rm -r ./*
 git clone https://github.com/GeoinformationSystems/gazetteer .
 git checkout develop
 
@@ -115,6 +119,7 @@ echo "-------------------- "
 echo "-------------------- Git include weatherstations-api"
 echo "-------------------- "
 cd ${DEV_FOLDER}/weatherstations-api
+rm -r .* & rm -r ./*
 git clone https://github.com/GeoinformationSystems/weatherstations .
 git checkout develop
 
@@ -125,10 +130,3 @@ cd ${DEV_FOLDER}/weatherstations-api/api
 mkdir src/main/resources/
 mvn clean install
 cp target/weatherstations-api.war ${WEBAPPS_FOLDER}
-
-#echo "-------------------- "
-#echo "-------------------- Git include thredds"
-#echo "-------------------- "
-#cd ${DEV_FOLDER}/thredds
-#git clone https://github.com/GeoinformationSystems/thredds .
-#git checkout develop
