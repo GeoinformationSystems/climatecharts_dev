@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "./assets/", "/home/vagrant/assets/"
   config.vm.synced_folder "./climatecharts_client/", "/home/vagrant/development/climatecharts_client/"
   config.vm.synced_folder "./gazetteer/", "/home/vagrant/development/gazetteer/"
-  config.vm.synced_folder "./thredds/", "/home/vagrant/development/thredds/"
+  config.vm.synced_folder "./thredds/", "/var/lib/tomcat8/content/"
   config.vm.synced_folder "./weatherstations-api/", "/home/vagrant/development/weatherstations-api/"
   config.vm.synced_folder "./war_folder/", "/var/lib/tomcat8/webapps/"
 

@@ -1,9 +1,11 @@
 /assets/database/tables.fill
+/assets/thredds/thredds.war
+/assets/thredds/GHCN_CAMS
 /installationnotes.md
 /war_folder
 #/climatecharts_client
 #/gazetter
-/assets/thredds/
+/thredds
 #/weatherstations-api
 *.ppk
 

@@ -6,6 +6,7 @@ Development environment for the climatecharts website.
 
 * Ubuntu 16.04 (VirtualBox)
 * Tomcat 8.0.32 (official packages)
+  * THREDDS Data Server 4.6.11
 * Apache 2.4.18 (official packages)
 * PostgreSQL 9.5 with PostgGIS 2.2  (official packages)
   * Vagrant default user: `postgres` with password `postgres`
@@ -18,7 +19,12 @@ Development environment for the climatecharts website.
   * port `5432` for PostgreSQL.
   * port `80` for Apache 2.
   * port `8080` for Tomcat.
-
+* VirtualBox: useful folder are synchronized:
+  * `climatecharts_client/` synced to  `/home/vagrant/development/climatecharts_client/`: for client development. A symbolic link to Apache's `www`-folder is implemented.
+  * `gazetteer/` synced to `/home/vagrant/development/gazetteer/`: for the development of the gazetteer server component.
+  * `thredds/` synced to `/var/lib/tomcat8/content/`: for the THREDDS server configuration (subfolder `thredds`) and dataset filesystem (subfolder `data`).
+  * `weatherstations-api/` synced to `/home/vagrant/development/weatherstations-api/`: for development ot the weatherstations api server component.
+  * `war_folder/` synced to `/var/lib/tomcat8/webapps/`: deployment folder of Tomcat.
 
 ## Requirements
 
@@ -31,12 +37,15 @@ Development environment for the climatecharts website.
 
 * `git clone` this repository or [download ZIP](https://github.com/GeoinformationSystems/climatecharts_dev).
 * `cd climatecharts_dev`
-* create the following folders in root if not already present:
-  - `climatecharts_client`
-  - `gazetteer`
-  - `thredds`
-  - `war_folder`
-  - `weatherstations-api`
+* Create the following folders in root if not already present:
+  - `climatecharts_client/`
+  - `gazetteer/`
+  - `thredds/`
+  - `war_folder/`
+  - `weatherstations-api/`
+* Due to Github's file size restrictions it is not allowed to upload huge files. Therefore, it is absolutely essential to download the additonal files from [here](https://www.dropbox.com/s/41nnpr88esjd86c/thredds_files.zip?dl=0) and unzip this into the folder `assets/thredds` to succesfully run the start script. If the download is not available you can download the single files individually:
+  * Download THREDDS server war file from [here](https://www.unidata.ucar.edu/downloads/thredds/index.jsp). Rename the file to `thredds.war` and copy it to folder `assets/thredds`.
+  * Download netCDF example file (air.mon.mean.nc) from [here](https://www.esrl.noaa.gov/psd/data/gridded/data.ghcncams.html). Rename it to `air.mon.mean.nc` (if necessary) and copy it to folder `assets/thredds/GHCN_CAMS`.
 * Follow the [Usage](#usage) section.
 
 ## Usage
@@ -93,36 +102,42 @@ Use the IDE of your choice (recommend [Eclipse](http://www.eclipse.org/)) to edi
 To build the war file use on the command line `mvn clean install` on vagrant machine or the IDEs capabilities.
 Copy the `weatherstations-api.war` from folder `/weatherstations-api/target` to `/war_folder` (or example command on vagrant machine: `cp /home/vagrant/development/weatherstations-api/api/target/weatherstations-api.war /var/lib/tomcat8/webapps`)
 
-### Thredds
+### THREDDS
 
-The file sizes of a thredds server is too huge for Github publishing and the development process. Therefore, it ist highly recommended to use the already existing Thredds server at [https://climatecharts.net/thredds](https://climatecharts.net/thredds).
+The file sizes of a THREDDS server is too huge for Github publishing and the development process. Therefore, it ist highly recommended to use the already existing THREDDS server at [https://climatecharts.net/thredds](https://climatecharts.net/thredds).
 
-If a separate deployment is really necessary, plaese to following instruction:
+In this project a basic THREDDS server is included with only a small and minimal dataset (GHCN_CAMS [credits](https://www.esrl.noaa.gov/psd/data/gridded/data.ghcncams.html)). In the original climatecharts THREDDS server we use the following dataset structure:
 
-> The following section is not confirmed yet
+```
+data
++-- CRU_ts_3.23
+|   +-- cru_ts.3.23.1901.2014.pre.dat.nc
+|   +-- cru_ts.3.23.1901.2014.tmp.dat.nc
++-- GHCN_CAMS
+|   +-- air.mon.mean.nc
++-- GPCC
+|   +-- precip.mon.total.v7.nc
++-- willmotts_monthly_4.01
+|   +-- air.mon.mean.v4.01.nc
+|   +-- conversion.nc
+|   +-- precip.mon.total.v401.mm.nc
+|   +-- precip.mon.total.v401.nc
+```
 
-1. Download the latest thredds server (war file) from the [unidata website](https://www.unidata.ucar.edu/downloads/thredds/index.jsp)
-2. Rename that file to `thredds.war` and copy it into the folder `/war_folder`
-3. Create a `/data` folder on the guest machine
-4. Copy example data files into that folder
-  * we have used the following structure:
-    ```
-    data
-    +-- CRU_ts_3.23
-    |   +-- cru_ts.3.23.1901.2014.pre.dat.nc
-    |   +-- cru_ts.3.23.1901.2014.tmp.dat.nc
-    +-- GHCN_CAMS
-    |   +-- air.mon.mean.nc
-    +-- GPCC
-    |   +-- precip.mon.total.v7.nc
-    +-- willmotts_monthly_4.01
-    |   +-- air.mon.mean.v4.01.nc
-    |   +-- conversion.nc
-    |   +-- precip.mon.total.v401.mm.nc
-    |   +-- precip.mon.total.v401.nc
-    ```
-  * and we used the following datasets:
-    - CRU_ts_3.23 (CRU Time Series v3.23): available [here](http://catalogue.ceda.ac.uk/uuid/5dca9487dc614711a3a933e44a933ad3).
-    - GHCN_CAMS, GPCC (GHCN CAMS and GPCC v7): available [here](https://www.esrl.noaa.gov/psd/data/gridded/data.ghcncams.html) and [here](https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html)
-    - willmotts_monthly_4.01 (University of Delaware Air Temperature and Precipitation v4.01): available [here](https://www.esrl.noaa.gov/psd/data/gridded/data.UDel_AirT_Precip.html)
-5. Perform additional instructions @ [https://github.com/GeoinformationSystems/climatecharts#setup-thredds-data-server](https://github.com/GeoinformationSystems/climatecharts#setup-thredds-data-server)
+This includes the following datasets:
+- CRU_ts_3.23 (CRU Time Series v3.23): available [here](http://catalogue.ceda.ac.uk/uuid/5dca9487dc614711a3a933e44a933ad3).
+- GHCN_CAMS, GPCC (GHCN CAMS and GPCC v7): available [here](https://www.esrl.noaa.gov/psd/data/gridded/data.ghcncams.html) and [here](https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html)
+- willmotts_monthly_4.01 (University of Delaware Air Temperature and Precipitation v4.01): available [here](https://www.esrl.noaa.gov/psd/data/gridded/data.UDel_AirT_Precip.html)
+
+#### Add new datasets to THREDDS
+
+If you want to add more datasets into the THREDDS server please do these steps:
+
+1. Stop the Tomcat server on the guest machine (use vagrant shell ([see here](https://github.com/GeoinformationSystems/climatecharts_dev#usage)) with the following command: `sudo service tomcat8 stop`)
+2. (Optional, already made on the guest) Download the latest THREDDS server (war file) from the [unidata website](https://www.unidata.ucar.edu/downloads/thredds/index.jsp). Rename that file to `thredds.war` and copy it into the folder `war_folder/`
+3. Add the new .nc dataset into a corresponding folderstructure into the folder `/var/lib/tomcat8/content/data` (on guest) respectively `thredds/data` (on the host)
+4. Edit the file `/var/lib/tomcat8/content/thredds/config.xml` (guest) or `thredds/thredds/config.xml` (host)
+  1. Add new Dataset section into this file according to the new dataset (examples are included and commented out)
+5. Delete the thredds folder from `/var/lib/tomcat8/webapps/` (guest) or `war_folder/` (host)
+6. Start Tomcat server on the guest machine (use vagrant shell ([see here](https://github.com/GeoinformationSystems/climatecharts_dev#usage)) with the following command: `sudo service tomcat8 start`).
+7. Call [http://localhost:8080/thredds/](http://localhost:8080/thredds/) to see if your changes are accepted. The loading of the website can be long for the initial call.
