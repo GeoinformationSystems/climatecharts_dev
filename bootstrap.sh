@@ -120,7 +120,7 @@ echo "-------------------- build gazetter"
 echo "-------------------- "
 cd ${DEV_FOLDER}/gazetteer
 mkdir src/main/resources/
-mvn clean install
+mvn clean install -DskipTests
 cp target/gazetteer.war ${WEBAPPS_FOLDER}
 
 echo "-------------------- "
@@ -136,7 +136,7 @@ echo "-------------------- build weatherstations-api"
 echo "-------------------- "
 cd ${DEV_FOLDER}/weatherstations-api/api
 mkdir src/main/resources/
-mvn clean install
+mvn clean install -DskipTests
 cp target/weatherstations-api.war ${WEBAPPS_FOLDER}
 
 
@@ -154,6 +154,8 @@ echo "-------------------- "
 
 sudo mkdir /var/lib/tomcat8/content/data
 sudo chmod 777 -R /var/lib/tomcat8/content/data/
+sudo mkdir /var/lib/tomcat8/content/thredds
+sudo chmod 777 -R /var/lib/tomcat8/content/thredds/
 cp -R ${ASSETS_FOLDER}/thredds/GHCN_CAMS ${THREDDS_FOLDER}/data
 cp ${ASSETS_FOLDER}/thredds/catalog.xml ${THREDDS_FOLDER}/thredds
 cp ${ASSETS_FOLDER}/thredds/threddsConfig.xml ${THREDDS_FOLDER}/thredds
