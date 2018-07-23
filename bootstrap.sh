@@ -78,11 +78,11 @@ sudo sh -c 'echo "Host github.com \n \t StrictHostKeyChecking no" >> ~/.ssh/conf
 echo "-------------------- "
 echo "-------------------- Git include climatecharts"
 echo "-------------------- "
-cd ${DEV_FOLDER}/climatecharts_client
+cd ${DEV_FOLDER}/client
 rm ./* & rm -r .*
 git clone https://github.com/GeoinformationSystems/climatecharts.git .
 git checkout develop
-sudo ln -s ${DEV_FOLDER}/climatecharts_client /var/www/html/
+sudo ln -s ${DEV_FOLDER}/client /var/www/html/
 
 echo "-------------------- "
 echo "-------------------- install node & and build climatecharts project"
@@ -94,7 +94,7 @@ sudo npm install --save-dev -g babel-preset-env
 cd ${DEV_FOLDER}/
 sudo npm install --save-dev babel-cli
 sudo npm install --save-dev babel-preset-env
-cd ${DEV_FOLDER}/climatecharts_client
+cd ${DEV_FOLDER}/client
 ./build.sh
 
 echo "-------------------- "
@@ -126,7 +126,7 @@ cp target/gazetteer.war ${WEBAPPS_FOLDER}
 echo "-------------------- "
 echo "-------------------- Git include weatherstations-api"
 echo "-------------------- "
-cd ${DEV_FOLDER}/weatherstations-api
+cd ${DEV_FOLDER}/weatherstations
 rm -r .* & rm -r ./*
 git clone https://github.com/GeoinformationSystems/weatherstations .
 git checkout develop
@@ -134,7 +134,7 @@ git checkout develop
 echo "-------------------- "
 echo "-------------------- build weatherstations-api"
 echo "-------------------- "
-cd ${DEV_FOLDER}/weatherstations-api/api
+cd ${DEV_FOLDER}/weatherstations/api
 mkdir src/main/resources/
 mvn clean install -DskipTests
 cp target/weatherstations-api.war ${WEBAPPS_FOLDER}

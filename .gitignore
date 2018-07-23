@@ -1,6 +1,7 @@
 /assets/database/tables.fill
 /assets/thredds/thredds.war
 /assets/thredds/GHCN_CAMS
+/assets/weatherstations
 /installationnotes.md
 /war_folder
 #/climatecharts_client
