@@ -139,6 +139,21 @@ mkdir src/main/resources/
 mvn clean install -DskipTests
 cp target/weatherstations-api.war ${WEBAPPS_FOLDER}
 
+#echo "-------------------- "
+#echo "-------------------- build weatherstations populate db"
+#echo "-------------------- "
+#sudo pip install virtualenv
+#virtualenv env
+#source env/bin/activate
+#pip install -r ${SERVER_FOLDER}/requirements.txt
+
+#echo "-------------------- "
+#echo "-------------------- create and fill djangoapi tables and create superuser"
+#echo "-------------------- "
+#python ${SERVER_FOLDER}/manage.py makemigrations
+#python ${SERVER_FOLDER}/manage.py migrate
+#python ${SERVER_FOLDER}/manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pettycash');"
+
 
 echo "-------------------- "
 echo "-------------------- Install Thredds server example"
