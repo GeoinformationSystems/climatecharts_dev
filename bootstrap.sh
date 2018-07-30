@@ -90,9 +90,9 @@ echo "-------------------- "
 sudo apt-get install -y npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 sudo npm install --save-dev -g babel-cli
-sudo npm install --save-dev -g babel-preset-env
+#sudo npm install --save-dev -g babel-preset-env
 cd ${DEV_FOLDER}/
-sudo npm install --save-dev babel-cli
+#sudo npm install --save-dev babel-cli
 sudo npm install --save-dev babel-preset-env
 cd ${DEV_FOLDER}/client
 ./build.sh
@@ -139,18 +139,29 @@ mkdir src/main/resources/
 mvn clean install -DskipTests
 cp target/weatherstations-api.war ${WEBAPPS_FOLDER}
 
+# copy data relevant files exist
+if [ -e "${ASSETS_FOLDER}/weatherstations/data" ]; then
+  echo "-------------------- "
+  echo "-------------------- copy weatherstations data"
+  echo "-------------------- "
+  cp -R ${ASSETS_FOLDER}/weatherstations/data ${DEV_FOLDER}/weatherstations/populate_db
+fi
+
+
 #echo "-------------------- "
 #echo "-------------------- build weatherstations populate db"
 #echo "-------------------- "
 #sudo pip install virtualenv
 #virtualenv env
 #source env/bin/activate
-#pip install -r ${SERVER_FOLDER}/requirements.txt
+#pip install -r ${DEV_FOLDER}/weatherstations/populate_db/requirements.txt
 
 #echo "-------------------- "
 #echo "-------------------- create and fill djangoapi tables and create superuser"
 #echo "-------------------- "
-#python ${SERVER_FOLDER}/manage.py makemigrations
+#cd /home/vagrant/development/weatherstations/populate_db/ #because there is the data folder
+#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py load_data s
+#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py makemigrations
 #python ${SERVER_FOLDER}/manage.py migrate
 #python ${SERVER_FOLDER}/manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pettycash');"
 
