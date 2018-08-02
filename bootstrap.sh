@@ -52,16 +52,16 @@ echo "-------------------- "
 sudo -u postgres psql -f ${DATABASE_FOLDER}/database.gen
 
 echo "-------------------- "
-echo "-------------------- create basic pettycash tables and user"
+echo "-------------------- create basic climatecharts_weatherstations tables"
 echo "-------------------- "
 sudo -u postgres psql -d climatecharts_weatherstations -f ${DATABASE_FOLDER}/tables.gen
 
 # fill tables if relevant file exist
-if [ -e "${DATABASE_FOLDER}/tables.fill" ]; then
+if [ -e "${DATABASE_FOLDER}/uptodatedata.sql" ]; then
   echo "-------------------- "
   echo "-------------------- fill tables"
   echo "-------------------- "
-  sudo -u postgres psql -d climatecharts_weatherstations -f ${DATABASE_FOLDER}/tables.fill
+  sudo -u postgres psql -d climatecharts_weatherstations -f ${DATABASE_FOLDER}/uptodatedata.sql
 fi
 sudo /etc/init.d/postgresql restart
 

@@ -1,4 +1,6 @@
 /assets/database/tables.fill
+/assets/database/uptodatedata.sql
+/assets/database/uptodatedata_compressed.sql
 /assets/thredds/thredds.war
 /assets/thredds/GHCN_CAMS
 /assets/weatherstations
