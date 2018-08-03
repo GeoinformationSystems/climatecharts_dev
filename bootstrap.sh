@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ASSETS_FOLDER="/home/vagrant/assets"
+HIDDEN_ASSETS_FOLDER="/home/vagrant/assets/hidden"
 DATABASE_FOLDER="${ASSETS_FOLDER}/database"
 DEV_FOLDER="/home/vagrant/development"
 WEBAPPS_FOLDER="/var/lib/tomcat8/webapps"
@@ -57,11 +58,11 @@ echo "-------------------- "
 sudo -u postgres psql -d climatecharts_weatherstations -f ${DATABASE_FOLDER}/tables.gen
 
 # fill tables if relevant file exist
-if [ -e "${DATABASE_FOLDER}/uptodatedata.sql" ]; then
+if [ -e "${HIDDEN_ASSETS_FOLDER}/uptodatedata.sql" ]; then
   echo "-------------------- "
   echo "-------------------- fill tables"
   echo "-------------------- "
-  sudo -u postgres psql -d climatecharts_weatherstations -f ${DATABASE_FOLDER}/uptodatedata.sql
+  sudo -u postgres psql -d climatecharts_weatherstations -f ${HIDDEN_ASSETS_FOLDER}/uptodatedata.sql
 fi
 sudo /etc/init.d/postgresql restart
 
@@ -156,14 +157,16 @@ fi
 #source env/bin/activate
 #pip install -r ${DEV_FOLDER}/weatherstations/populate_db/requirements.txt
 
+
 #echo "-------------------- "
 #echo "-------------------- create and fill djangoapi tables and create superuser"
 #echo "-------------------- "
 #cd /home/vagrant/development/weatherstations/populate_db/ #because there is the data folder
-#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py load_data s
 #python ${DEV_FOLDER}/weatherstations/populate_db/manage.py makemigrations
-#python ${SERVER_FOLDER}/manage.py migrate
-#python ${SERVER_FOLDER}/manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pettycash');"
+#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py migrate
+#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py load_data S # load station data
+#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py load_data D # load stationdata data
+#python ${DEV_FOLDER}/weatherstations/populate_db/manage.py update_stations # create statistics data
 
 
 echo "-------------------- "

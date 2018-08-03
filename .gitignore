@@ -4,6 +4,7 @@
 /assets/thredds/thredds.war
 /assets/thredds/GHCN_CAMS
 /assets/weatherstations
+/assets/hidden
 /installationnotes.md
 /war_folder
 #/climatecharts_client
