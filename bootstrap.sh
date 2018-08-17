@@ -53,7 +53,8 @@ sudo sh -c 'echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/9.5/main/pg_hba
 echo "-------------------- "
 echo "-------------------- create basic climatecharts database"
 echo "-------------------- "
-sudo -u postgres psql -c "CREATE DATABASE climatecharts_weatherstations"
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres'"
+sudo -u postgres psql -c "CREATE DATABASE climatecharts_weatherstations OWNER postgres"
 sudo -u postgres psql -d climatecharts_weatherstations -c "CREATE EXTENSION postgis"
 
 echo "-------------------- "
@@ -143,6 +144,7 @@ source env/bin/activate
 pip install -r populate_db/requirements.txt
 python populate_db/manage.py makemigrations
 python populate_db/manage.py migrate
+deactivate
 
 # fill tables if relevant file exist
 if [ -e "${HIDDEN_ASSETS_FOLDER}/uptodatedata.sql" ]; then
