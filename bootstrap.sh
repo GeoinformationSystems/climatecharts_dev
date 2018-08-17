@@ -160,7 +160,15 @@ echo "-------------------- Install Thredds server example"
 echo "-------------------- "
 sudo mkdir ${THREDDS_FOLDER}
 sudo chmod 777 -R ${THREDDS_FOLDER}
-sudo cp ${ASSETS_FOLDER}/thredds/tomcat8 /etc/default/tomcat8
+sudo sh -c 'echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre" >> /etc/default/tomcat8'
+sudo sh -c 'echo "CATALINA_HOME=/usr/share/tomcat8" >> /etc/default/tomcat8'
+sudo sh -c 'echo "CATALINA_BASE=/var/lib/tomcat8" >> /etc/default/tomcat8'
+sudo sh -c 'echo "CONTENT_ROOT=\"-Dtds.content.root.path=/var/lib/tomcat8/content\"" >> /etc/default/tomcat8'
+sudo sh -c 'echo "JAVA_PREFS_ROOTS=\"-Djava.util.prefs.systemRoot=\$CATALINA_BASE/content/thredds/javaUtilPrefs -Djava.util.prefs.userRoot=\$CATALINA_BASE/content/thredds/javaUtilPrefs\"" >> /etc/default/tomcat8'
+sudo sh -c 'echo "NORMAL=\"-d64 -Xmx4096m -Xms512m -server -ea\"" >> /etc/default/tomcat8'
+sudo sh -c 'echo "HEAP_DUMP=\"-XX:+HeapDumpOnOutOfMemoryError\"" >> /etc/default/tomcat8'
+sudo sh -c 'echo "HEADLESS=\"-Djava.awt.headless=true\"" >> /etc/default/tomcat8'
+sudo sh -c 'echo "CATALINA_OPTS=\"\$CONTENT_ROOT \$NORMAL \$MAX_PERM_GEN \$HEAP_DUMP \$HEADLESS \$JAVA_PREFS_ROOTS\"" >> /etc/default/tomcat8'
 cp ${ASSETS_FOLDER}/thredds/thredds.war ${WEBAPPS_FOLDER}
 
 echo "-------------------- "
