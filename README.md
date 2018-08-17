@@ -43,7 +43,7 @@ Development environment for the climatecharts website.
   - `thredds/`
   - `war_folder/`
   - `weatherstations/`
-* Due to Github's file size restrictions it is not allowed to upload huge files. Therefore, it is absolutely essential to download the additonal files from [here](https://www.dropbox.com/s/41nnpr88esjd86c/thredds_files.zip?dl=0) and unzip this into the folder `assets/thredds` to succesfully run the start script. If the download is not available you can download the single files individually:
+* Due to Github's file size restrictions it is not allowed to upload huge files. Therefore, it is absolutely essential to download the additonal files from [here](https://www.dropbox.com/s/rx812ewiauxwg9x/thredds.zip?dl=0) and unzip this into the folder `assets/thredds` to succesfully run the start script. If the download is not available you can download the single files individually:
   * Download THREDDS server war file from [here](https://www.unidata.ucar.edu/downloads/thredds/index.jsp). Rename the file to `thredds.war` and copy it to folder `assets/thredds`.
   * Download netCDF example file (air.mon.mean.nc) from [here](https://www.esrl.noaa.gov/psd/data/gridded/data.ghcncams.html). Rename it to `air.mon.mean.nc` (if necessary) and copy it to folder `assets/thredds/GHCN_CAMS`.
 * Follow the [Usage](#usage) section.
