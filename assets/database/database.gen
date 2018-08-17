@@ -1,2 +1,0 @@
-ALTER USER postgres PASSWORD 'postgres';
-CREATE DATABASE climatecharts_weatherstations OWNER postgres;
