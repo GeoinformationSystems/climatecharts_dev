@@ -141,3 +141,8 @@ If you want to add more datasets into the THREDDS server please do these steps:
 5. Delete the thredds folder from `/var/lib/tomcat8/webapps/` (guest) or `war_folder/` (host)
 6. Start Tomcat server on the guest machine (use vagrant shell ([see here](https://github.com/GeoinformationSystems/climatecharts_dev#usage)) with the following command: `sudo service tomcat8 start`).
 7. Call [http://localhost:8080/thredds/](http://localhost:8080/thredds/) to see if your changes are accepted. The loading of the website can be long for the initial call.
+
+## License
+
+The climatecharts_dev project is lincensed under the Apache License 2.0. Please look at the [subprojects](#features) for their individual 
+licenses.
